@@ -1,23 +1,35 @@
 function processMultipleCSVFiles()
-    % 让用户选择五个CSV文件
-    [files, path] = uigetfile('*.csv', 'Select CSV Files', 'MultiSelect', 'on');
-    if isequal(files, 0)
-        disp('User selected Cancel');
-        return;
-    elseif length(files) ~= 5
-        disp('Please select exactly five files');
-        return;
-    end
+    % 文件选择指令
+    prompts = {
+        '请选择Landshuter Allee的数据', ...
+        '请选择Stachus的数据', ...
+        '请选择Lothstraße 的数据', ...
+        '请选择Allach的数据', ...
+        '请选择Johanneskirchen的数据'
+    };
 
     % 初始化变量
-    num_files = length(files);
+    num_files = length(prompts);
     all_time = cell(num_files, 1);
     all_NO2 = cell(num_files, 1);
+    fileNames = cell(num_files, 1);
+
+    % 依次弹出选择窗口
+    for i = 1:num_files
+        [file, path] = uigetfile('*.csv', prompts{i});
+        if isequal(file, 0)
+            disp('User selected Cancel');
+            return;
+        else
+            filePath = fullfile(path, file);
+            disp(['User selected ', filePath]);
+            fileNames{i} = filePath;  % 保存文件路径
+        end
+    end
 
     % 读取并解析每个CSV文件
     for i = 1:num_files
-        filePath = fullfile(path, files{i});
-        raw_data = readtable(filePath, 'ReadVariableNames', false, 'Delimiter', ';');
+        raw_data = readtable(fileNames{i}, 'ReadVariableNames', false, 'Delimiter', ';');
         
         num_rows = height(raw_data);
         time = datetime.empty(num_rows, 0);
@@ -49,7 +61,7 @@ function processMultipleCSVFiles()
 
     % 创建新的表格
     new_table = table(all_time{1}, all_NO2{1}, all_NO2{2}, all_NO2{3}, all_NO2{4}, all_NO2{5}, ...
-                      'VariableNames', {'Time', 'NO2_1', 'NO2_2', 'NO2_3', 'NO2_4', 'NO2_5'});
+                      'VariableNames', {'Time', 'NO2_Landshuter_Allee', 'NO2_Stachus', 'NO2_Lothstrasse', 'NO2_Allach', 'NO2_Johanneskirchen'});
 
     % 显示新表格
     disp(new_table);
@@ -64,4 +76,5 @@ function processMultipleCSVFiles()
     %     save(matFilePath, 'new_table');
     %     disp(['Data saved to ', matFilePath]);
     % end
+    
 end
