@@ -1,4 +1,4 @@
-function processMultipleCSVFiles()
+function new_table = processMultipleCSVFiles()
     % 文件选择指令
     prompts = {
         '请选择Landshuter Allee的数据', ...
@@ -76,5 +76,5 @@ function processMultipleCSVFiles()
     %     save(matFilePath, 'new_table');
     %     disp(['Data saved to ', matFilePath]);
     % end
-    
+
 end
