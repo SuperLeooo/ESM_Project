@@ -1,5 +1,5 @@
 function DisplayMunichMap
-    % 打开一个交互式的在线地图（默认使用OpenStreetMap）
+    % 打开一个交互式的在线地图
     wm = webmap('OpenStreetMap');
 
     % 设置地图中心和缩放级别
@@ -11,21 +11,17 @@ function DisplayMunichMap
     wmcenter(lat, lon, zoomLevel);
     wmmarker(lat, lon, 'Description', 'Munich');
 
-    % 设置 20 km × 20 km 区域的范围
-    latRange = [lat - 0.1, lat + 0.1]; % 大约对应于 20 km 的纬度范围
-    lonRange = [lon - 0.1, lon + 0.1]; % 大约对应于 20 km 的经度范围
+    % 20 km x 20 km 
+    latRange = [lat - 0.1, lat + 0.1]; % Approx. 20 km latitude range
+    lonRange = [lon - 0.1, lon + 0.1]; % Approx. 20 km longitude range
 
-    % 创建 1 km × 1 km 分辨率的网格
+    % 建一个1 km x 1 km 的网格
     [latGrid, lonGrid] = meshgrid(linspace(latRange(1), latRange(2), 21), linspace(lonRange(1), lonRange(2), 21));
 
-    % 在地图上绘制网格
+    % Plot
     for i = 1:length(latGrid)
-        for j = 1:length(lonGrid)
-            wmline([latGrid(i,j) latGrid(i,j)], [lonGrid(i,j) lonGrid(i,j)+0.01], 'Color', 'blue');
-            wmline([latGrid(i,j) latGrid(i,j)+0.01], [lonGrid(i,j) lonGrid(i,j)], 'Color', 'blue');
-        end
+        wmline([latGrid(i, 1), latGrid(i, end)], [lonGrid(i, 1), lonGrid(i, end)], 'Color', 'blue', 'Width', 0.5);
+        wmline([latGrid(1, i), latGrid(end, i)], [lonGrid(1, i), lonGrid(end, i)], 'Color', 'blue', 'Width', 0.5);
     end
 
-    % 添加标题
-    title('Munich with 1 km × 1 km Grid');
 end
