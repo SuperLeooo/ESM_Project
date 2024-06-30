@@ -26,5 +26,7 @@ xlabel('Time of Day (Hours)');
 ylabel('Traffic Volume');
 title('Hourly Traffic Volume for LHA, LOT, and STA');
 legend;
+legend('FontSize', 14);
+set(gca, 'FontSize', 14);
 hold off;
 

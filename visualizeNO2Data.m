@@ -1,5 +1,7 @@
 %% 5个检测站NO2浓度与时间关系的可视化
 function visualizeNO2Data()
+    clc;
+    clear all;
     new_table = processMultipleCSVFiles();
     
     % 检查返回的表格是否为空
@@ -33,18 +35,23 @@ function visualizeNO2Data()
     plot(time, NO2_Allach_ppb, '-c', 'DisplayName', 'Allach');
     plot(time, NO2_Johanneskirchen_ppb, '-m', 'DisplayName', 'Johanneskirchen');
     hold off;
+
     xlabel('Time');
     ylabel('NO2 (ppb)');
-    title('NO2 mixing ratios in the last 48 hours');
+    title('NO2 mixing ratios in 48 hours');
+    legend('FontSize', 14);
+    set(gca, 'FontSize', 14);
     legend show;
     grid on;
 
-    % 柱状图
-    figure(2);
-    bar(time, [NO2_Landshuter_Allee_ppb, NO2_Stachus_ppb, NO2_Lothstrasse_ppb, NO2_Allach_ppb, NO2_Johanneskirchen_ppb]);
-    xlabel('Time');
-    ylabel('NO2 (ppb)');
-    title('NO2 mixing ratios in the last 48 hours');
-    legend({'Landshuter Allee', 'Stachus', 'Lothstraße', 'Allach', 'Johanneskirchen'});
-    grid on;
+    % % 柱状图
+    % figure(2);
+    % bar(time, [NO2_Landshuter_Allee_ppb, NO2_Stachus_ppb, NO2_Lothstrasse_ppb, NO2_Allach_ppb, NO2_Johanneskirchen_ppb]);
+    % xlabel('Time');
+    % ylabel('NO2 (ppb)');
+    % title('NO2 mixing ratios in the last 48 hours');
+    % legend({'Landshuter Allee', 'Stachus', 'Lothstraße', 'Allach', 'Johanneskirchen'});
+    % legend('FontSize', 14);
+    % set(gca, 'FontSize', 14);
+    % grid on;
 end
