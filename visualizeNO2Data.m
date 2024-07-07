@@ -1,16 +1,16 @@
-%% 5个检测站NO2浓度与时间关系的可视化
+%% Visualization of NO2 concentration over time at 5 monitoring stations
 function visualizeNO2Data()
     clc;
     clear all;
     new_table = processMultipleCSVFiles();
     
-    % 检查返回的表格是否为空
+    % Check if the returned table is empty
     if isempty(new_table)
         disp('No valid data to visualize.');
         return;
     end
 
-    % 提取时间和NO2数据
+    % Extract time and NO2 data
     time = new_table.Time;
     NO2_Landshuter_Allee = new_table.NO2_Landshuter_Allee;
     NO2_Stachus = new_table.NO2_Stachus;
@@ -18,7 +18,7 @@ function visualizeNO2Data()
     NO2_Allach = new_table.NO2_Allach;
     NO2_Johanneskirchen = new_table.NO2_Johanneskirchen;
 
-    % 转换NO2数据从µg/m³到ppb
+    % Convert NO2 data from µg/m³ to ppb
     conversion_factor = 24.45 / 46.0055;
     NO2_Landshuter_Allee_ppb = NO2_Landshuter_Allee * conversion_factor;
     NO2_Stachus_ppb = NO2_Stachus * conversion_factor;
@@ -26,7 +26,7 @@ function visualizeNO2Data()
     NO2_Allach_ppb = NO2_Allach * conversion_factor;
     NO2_Johanneskirchen_ppb = NO2_Johanneskirchen * conversion_factor;
 
-    % 折线图
+    % Line plot
     figure(1);
     plot(time, NO2_Landshuter_Allee_ppb, '-r', 'DisplayName', 'Landshuter Allee');
     hold on;
@@ -43,15 +43,4 @@ function visualizeNO2Data()
     set(gca, 'FontSize', 14);
     legend show;
     grid on;
-
-    % % 柱状图
-    % figure(2);
-    % bar(time, [NO2_Landshuter_Allee_ppb, NO2_Stachus_ppb, NO2_Lothstrasse_ppb, NO2_Allach_ppb, NO2_Johanneskirchen_ppb]);
-    % xlabel('Time');
-    % ylabel('NO2 (ppb)');
-    % title('NO2 mixing ratios in the last 48 hours');
-    % legend({'Landshuter Allee', 'Stachus', 'Lothstraße', 'Allach', 'Johanneskirchen'});
-    % legend('FontSize', 14);
-    % set(gca, 'FontSize', 14);
-    % grid on;
 end

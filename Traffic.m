@@ -1,14 +1,13 @@
-%% 读取数据
-% 提取并可视化提供的traffic流量表里的车流量数据
+%% Read traffic data
+% Extract and visualize the traffic volume data from the provided traffic table
 %
 clc;
 
 data = readtable('traffic.csv', 'VariableNamingRule', 'preserve');
-% 提取每个地点的数据
+% Extract data for each location
 LHA_data = data{1, 4:end};
 LOT_data = data{2, 4:end};
 STA_data = data{3, 4:end};
-
 
 time = 0:23;
 
@@ -29,4 +28,3 @@ legend;
 legend('FontSize', 14);
 set(gca, 'FontSize', 14);
 hold off;
-
