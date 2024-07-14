@@ -7,6 +7,15 @@ landshuter = readtable('./NO2Database/Landshuter Allee.csv','ReadVariableNames',
 loths = readtable('./NO2Database/Lothstrasse.csv','ReadVariableNames', false, 'Delimiter', ';');
 stachus = readtable('./NO2Database/Stachus.csv','ReadVariableNames', false, 'Delimiter', ';'); 
 
+% Assuming a temperature of 298 K and a pressure of 1013 hPa
+% 1 ppb = (μg/m^3 * 24.45) / (46.0055) for NO2
+conversion_factor = 24.45 / 46.0055;
+allach{:, 3} = allach{:, 3} * conversion_factor;
+johann{:, 3} = johann{:, 3} * conversion_factor;
+landshuter{:, 3} = landshuter{:, 3} * conversion_factor;
+loths{:, 3} = loths{:, 3} * conversion_factor;
+stachus{:, 3} = stachus{:, 3} * conversion_factor;
+
 % Calculate the average concentration for each station
 average_allach = mean(allach{:, 3});
 average_johann = mean(johann{:, 3});
@@ -54,7 +63,7 @@ function c = idw_interpolation(x, y, station_coords, concentrations)
     c = c ./ weights;
 end
 
-
+DisplayMunichMap
 
 
 
