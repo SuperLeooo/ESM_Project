@@ -1,4 +1,4 @@
-%% Read NO2 data
+%% Read NO2 data and plot with Munich Map
 clc;
 clear;
 allach = readtable('./NO2Database/Allach.csv','ReadVariableNames', false, 'Delimiter', ';');

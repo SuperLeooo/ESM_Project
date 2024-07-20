@@ -1,6 +1,6 @@
 %% Read traffic data
 % Extract and visualize the traffic volume data from the provided traffic table
-%
+
 clc;
 
 data = readtable('traffic.csv', 'VariableNamingRule', 'preserve');
